@@ -79,14 +79,24 @@ class BirderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Birder $birder)
+    public function edit(Request $request, $id)
     {
 
+       /* $validatedData = $request->validate([
+        true
+        ]);*/
+
+        $birder = Birder::find($id);
         $listcategorys = ListCategory::all();
 
-        return;
+        foreach ($listcategorys as $cat) {
 
-        $listcategorys = ListCategory::all();
+        $fieldName = 'cat_'.$cat->id.'_amount';
+        // dd($request);
+        $amount = request($fieldName);
+
+        Point::updateOrCreate(['birder_id' => $birder->id, 'listcategory_id' => $cat->id], ['amount' => $amount]);
+        }
 
         return view('birderstats', compact('birder', 'listcategorys'));
     }

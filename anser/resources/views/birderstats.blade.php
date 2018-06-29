@@ -11,6 +11,8 @@
 
                 @forelse($listcategorys as $listcategory)
 
+                <form method="POST" action="/birders/{{ $birder->id }}">
+
                 <div id="wrapper" class="columns">
 
                     <div class="column is-2">
@@ -25,11 +27,11 @@
 
                         @if ($birder->hasPointsInCategory($listcategory->id))
 
-                            <input class="input is-small" type="text" size="5" name=" {{$listcategory->id}}_amount " value=" {{ $birder->PointsAmountInCategory($listcategory->id) }}">
+                            <input class="input is-small" type="number" size="5" name="cat_{{$listcategory->id}}_amount" value="{{ $birder->PointsAmountInCategory($listcategory->id) }}">
 
                         @else
 
-                            <input class="input is-small" type="text" size="5" name=" {{$listcategory->id}}_amount " value="0">
+                            <input class="input is-small" type="number" size="5" name="cat_{{$listcategory->id}}_amount" value="0">
 
                         @endif
 
@@ -47,8 +49,6 @@
                 <div class="columns is-multiline is-mobile">
 
                     <div class="column">
-
-                <form method="POST" action="/birders/{{ $birder->id }}">
 
                     {{ csrf_field() }}
 
