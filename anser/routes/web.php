@@ -18,73 +18,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('birders', function () {
+Route::get('birders', 'BirderController@index');
 
+Route::get('birders/{id}', 'BirderController@show');
 
-	// $birders = [
-	// 	'Anzu',
-	// 	'Antti',
-	// 	'Bentti'
-	// ];
+Route::post('birders/{id}', 'BirderController@edit');
 
-	$birders = Birder::all();
+Route::post('birders', 'BirderController@store');
 
-    return view('birders', compact('birders'));
-});
-
-Route::get('birders/{id}', function ($id) {
-
-	$birder = Birder::find($id);
-
-	return $birder;
-
-});
-
-
-Route::post('birders', function () {
-
-	$birder = new Birder;
-
-	$birder->name = request('name');
-	$birder->save();
-
-
-
-	$birders = Birder::all();
-
-	return view('birders', compact('birders'));
-
-	// return public function (
-
-		// create()
-
-	// );
-
-});
-
-Route::delete('birders/{id}', function ($id) {
-
-	$birder=Birder::find($id);
-	$birder->delete();
-
-	echo 'deleting'.$birder->name;
-
-	return redirect ('birders');
-
-	// return public function (
-
-		// create()
-
-	// );
-
-});
+Route::delete('birders/{id}', 'BirderController@destroy');
 
 /// Routes for ListCategory
-///
 
-Route::get('listcategorys', function () {
+Route::get('listcategorys', 'ListCategoryController@index');
 
-	$categories = ListCategory::all();
+Route::get('listcategorys/{id}', 'ListCategoryController@show');
 
-    return $categories;
-});
+Route::post('listcategorys', 'ListCategoryController@store');
+
+Route::delete('listcategorys/{id}', 'ListCategoryController@destroy');
+
+

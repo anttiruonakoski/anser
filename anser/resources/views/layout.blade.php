@@ -14,7 +14,7 @@
 
 		<style>
 		body {
-		    padding-top: 40px;
+		    padding-top: 20px;
 		}
 		</style>
 
@@ -26,7 +26,7 @@
 
     		<article class="box has-background-white-bis">
 
-        	<div class="title">
+        	<div class="title is-1">
 
            		<p class="has-text-black-ter">Anser anser</p>
 
@@ -38,19 +38,19 @@
 
         	<div class="tabs">
         	  <ul>
-        	  	<li class="{{ request()->is('/') ? 'is-active' : '' }}"><a href="/">Etusivu</a></li>
-        	    <li class="{{ request()->is('birders') ? 'is-active' : '' }}"><a href="/birders">Pinnankerääjät</a></li>
+        	  	<li class="{{ request()->is('/') ? 'is-active' : '' }}"><a href="/">Etusivu&nbsp;&nbsp;(pinnat)</a></li>
+        	    <li class="{{ request()->is('birders') ? 'is-active' : '' }}"><a href="/birders">Pinnojen ilmoittajat</a></li>
         	    <li class="{{ request()->is('listcategorys') ? 'is-active' : '' }}"><a href="/listcategorys">Pinnakategoriat</a></li>
         	  </ul>
         	</div>
 
-			<div class="container">
+			<div class="">
 
 				@yield('content')
 
 			</div>
 
-			<div class="container">
+			<div class="">
 
 				@yield('footer')
 
