@@ -37,7 +37,7 @@ class ListCategoryController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-        'category' => 'required|unique:listcategorys|max:100'
+        'category' => 'required|unique:list_categories|max:100'
         ]);
 
         $listcategory = new ListCategory;

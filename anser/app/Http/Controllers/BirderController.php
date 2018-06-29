@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Birder;
+use App\Birder, App\ListCategory, App\Point;
+
 
 function allBirdersSorted() {
      return Birder::get()->sortBy('name', SORT_NATURAL|SORT_FLAG_CASE);
@@ -50,14 +51,13 @@ class BirderController extends Controller
         'name' => 'required|unique:birders|max:100'
         ]);
 
-        //echo "ollaan validoinnis";
-        //dd($request);
-
         $birder = new Birder;
         $birder->name = request('name');
         $birder->save();
-        $birders = allBirdersSorted();
 
+        //populate points
+
+        $birders = allBirdersSorted();
         return view('birders', compact('birders'));
     }
 
@@ -71,7 +71,9 @@ class BirderController extends Controller
     {
 
         $birder = Birder::find($id);
-        return view('birderstats', compact('birder'));        //
+        $listcategorys = ListCategory::all();
+
+        return view('birderstats', compact('birder', 'listcategorys'));        //
     }
 
     /**
@@ -82,7 +84,14 @@ class BirderController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $listcategorys = ListCategory::all();
+
+        return;
+        $birder = Birder::find($id);
+        $listcategorys = ListCategory::all();
+
+        return view('birderstats', compact('birder', 'listcategorys'));
     }
 
     /**

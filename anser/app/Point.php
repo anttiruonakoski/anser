@@ -6,16 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Point extends Model
 {
-    protected $fillable = ['amount'];
+    protected $fillable = ['amount', 'birder_id', 'listcategory_id'];
 
     public function submitter()
     {
-        return $this->hasOne('App\Birder');
+        return $this->belongsTo('App\Birder');
     }
 
     public function category()
     {
-        return $this->hasOne('App\ListCategory');
+        return $this->belongsTo('App\ListCategory');
+    }
+
+    public function xsave()
+    {
+    	return $this->save();
     }
 
 }
