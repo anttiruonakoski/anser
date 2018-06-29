@@ -54,9 +54,8 @@ class ListCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ListCategory $listcategory)
     {
-        $listcategory = ListCategory::find($id);
         return $listcategory;
     }
 
@@ -89,11 +88,10 @@ class ListCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ListCategory $listcategory)
     {
-        $listcategory=Listcategory::find($id);
-        $listcategory->delete();
 
+        $listcategory->delete();
         return redirect ('listcategorys');
 
          // return public function (

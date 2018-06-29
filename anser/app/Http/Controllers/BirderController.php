@@ -67,12 +67,9 @@ class BirderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Birder $birder)
     {
-
-        $birder = Birder::find($id);
         $listcategorys = ListCategory::all();
-
         return view('birderstats', compact('birder', 'listcategorys'));        //
     }
 
@@ -82,13 +79,13 @@ class BirderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Birder $birder)
     {
 
         $listcategorys = ListCategory::all();
 
         return;
-        $birder = Birder::find($id);
+
         $listcategorys = ListCategory::all();
 
         return view('birderstats', compact('birder', 'listcategorys'));
@@ -112,10 +109,9 @@ class BirderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Birder $birder)
     {
 
-    $birder=Birder::find($id);
     $birder->delete();
 
     return redirect ('birders');

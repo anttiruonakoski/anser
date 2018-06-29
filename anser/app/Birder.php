@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Birder extends Model
 {
     protected $fillable = ['name'];
+    protected $primaryKey = 'id';
 
     public function points()
     {
@@ -18,14 +19,14 @@ class Birder extends Model
         return $this->points()->where ('listcategory_id', $c )->first()->amount;
     }
 
-    public function sav($c)
-    {
-        return $this->points()->where ('listcategory_id', $c )->first();
-    }
-
     public function hasPointsInCategory($c)
     {
     	return ($this->points()->where('listcategory_id', $c)->count() > 0);
+    }
+
+    public function sav($c)
+    {
+        return $this->points()->where ('listcategory_id', $c )->first();
     }
 
 }

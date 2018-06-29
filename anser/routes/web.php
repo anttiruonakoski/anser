@@ -20,22 +20,22 @@ Route::get('/', function () {
 
 Route::get('birders', 'BirderController@index');
 
-Route::get('birders/{id}', 'BirderController@show');
+Route::get('birders/{birder}', 'BirderController@show');
 
 Route::post('birders/{id}', 'BirderController@edit');
 
 Route::post('birders', 'BirderController@store');
 
-Route::delete('birders/{id}', 'BirderController@destroy');
+Route::delete('birders/{birder}', 'BirderController@destroy');
 
 /// Routes for ListCategory
 
 Route::get('listcategorys', 'ListCategoryController@index');
 
-Route::get('listcategorys/{id}', 'ListCategoryController@show');
+Route::get('listcategorys/{listcategory}', 'ListCategoryController@show');
 
 Route::post('listcategorys', 'ListCategoryController@store');
 
-Route::delete('listcategorys/{id}', 'ListCategoryController@destroy');
+Route::delete('listcategorys/{listcategory}', 'ListCategoryController@destroy');
 
 
