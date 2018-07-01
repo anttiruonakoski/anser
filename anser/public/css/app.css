@@ -11519,3 +11519,61 @@ body {
   font-family: "Raleway", sans-serif;
 }
 
+.flash-message {
+  -webkit-animation-name: fade-out, collapse;
+          animation-name: fade-out, collapse;
+  -webkit-animation-duration: 1s, 300ms;
+          animation-duration: 1s, 300ms;
+  -webkit-animation-delay: 4s, 5s;
+          animation-delay: 4s, 5s;
+  -webkit-animation-fill-mode: both, both;
+          animation-fill-mode: both, both;
+}
+
+.flash-message:hover {
+  -webkit-animation-play-state: paused;
+          animation-play-state: paused;
+}
+
+@-webkit-keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes collapse {
+  0% {
+    max-height: 200px;
+  }
+
+  100% {
+    max-height: 0;
+    padding: 0;
+  }
+}
+
+@keyframes collapse {
+  0% {
+    max-height: 200px;
+  }
+
+  100% {
+    max-height: 0;
+    padding: 0;
+  }
+}
+

@@ -11,11 +11,15 @@
 |
 */
 
-use App\Birder;
-use App\ListCategory;
+use App\Birder, App\ListCategory, App\Point;
 
 Route::get('/', function () {
-    return view('welcome');
+
+	$c = ListCategory::all();
+	$data = Point::where('amount', '>', '0')->get()->sortByDesc('amount')->groupBy('listcategory_id');
+
+    return view('stats', compact('data'));
+
 });
 
 Route::get('birders', 'BirderController@index');

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Point extends Model
 {
     protected $fillable = ['amount', 'birder_id', 'listcategory_id'];
@@ -21,6 +22,11 @@ class Point extends Model
     public function xsave()
     {
     	return $this->save();
+    }
+
+    public function scopeUsedListCategories($query)
+    {
+        return $query->where('amount','>' ,0)->get()->unique('listcategory_id')->pluck('listcategory_id');
     }
 
 }

@@ -48,7 +48,8 @@
 		                            </p>
 
 		                            <p class="control">
-		                                <input type="submit" class="button is-link" value="Lisää"></input>
+		                                <input type="submit" class="button is-primary
+		                                " value="Lisää"></input>
 		                            </p>
 
 		                        </div>
@@ -59,11 +60,20 @@
 
 		                    </div>
 
-		                    @if (count($errors) > 0)
-		                        <div class="column notification is-warning">
-		                          <p>Kategoria on jo ennestään tai tyhjä tai liian pitkä (yli 100 merkkiä).</p>
-		                        </div>
-		                    @endif
+		                @if (count($errors) > 0)
+
+                   	 	<div class="column notification is-warning flash-message">
+                       		<p> {{ $errors->first('category') }} </p>
+                    	</div>
+
+                		@endif
+
+               			 @if (count($errors) == 0)
+
+                    	@component('inc.flashmessage')
+                    	@endcomponent
+
+                		@endif
 
 	</article>
 

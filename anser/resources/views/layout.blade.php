@@ -24,17 +24,27 @@
 
   		<div class="flex-center position-ref full-height container">
 
-    		<article class="box has-background-white-bis">
+    		<article style="background-image: url('/img/ans2.png'); background-position: top 20px right 20px; background-repeat: no-repeat" class="box has-background-white-bis">
 
-        	<div class="title is-1">
+          <div class="columns">
 
-           		<p class="has-text-black-ter">Anser anser</p>
+        	<div class="column">
+
+           		<h1 class="title is-1 has-text-black-ter">Anser anser</h1>
+
+              <div class="content">
+                  Pinnantallennussovellus
+              </div>
 
         	</div>
 
-        	<div class="content">
-        		Pinnantallennussovellus
-        	</div>
+          <div class="column">
+          </div>
+
+
+          </div>
+
+
 
         	<div class="tabs">
         	  <ul>
@@ -44,7 +54,7 @@
         	  </ul>
         	</div>
 
-			<div class="">
+			<div>
 
 				@yield('content')
 

@@ -47,15 +47,22 @@ class BirderController extends Controller
 
     public function store(Request $request)
     {
+
+        $messages = [
+            'name.required' => 'Nimi ei voi olla tyhjä',
+            'name.unique' => 'Ilmoittaja on jo olemassa',
+            'name.max' => 'Liian pitkä nimi'
+        ];
+
         $validatedData = $request->validate([
-        'name' => 'required|unique:birders|max:100'
-        ]);
+        'name' => 'required|unique:birders|max:50'
+        ], $messages);
 
         $birder = new Birder;
         $birder->name = request('name');
-        $birder->save();
 
-        //populate points
+        $birder->save();
+        $request->session()->flash('alert-success', 'Ilmoittaja tallennettu');
 
         $birders = allBirdersSorted();
         return view('birders', compact('birders'));
@@ -82,22 +89,28 @@ class BirderController extends Controller
     public function edit(Request $request, $id)
     {
 
-       /* $validatedData = $request->validate([
-        true
-        ]);*/
+        $messages = [
+            'required' => 'Pinnamäärä ei voi olla tyhjä',
+            'max' => 'Pinnamäärä ei voi ylittää 2000'
+        ];
+
 
         $birder = Birder::find($id);
         $listcategorys = ListCategory::all();
 
         foreach ($listcategorys as $cat) {
+            $fieldName = 'cat_'.$cat->id.'_amount';
 
-        $fieldName = 'cat_'.$cat->id.'_amount';
-        // dd($request);
-        $amount = request($fieldName);
+            $validatedData = $request->validate([
+            $fieldName => 'required|numeric|max:2000',
+            ], $messages);
+
+            $amount = request($fieldName);
 
         Point::updateOrCreate(['birder_id' => $birder->id, 'listcategory_id' => $cat->id], ['amount' => $amount]);
         }
 
+        $request->session()->flash('alert-success', 'Pinnatiedot tallennettu');
         return view('birderstats', compact('birder', 'listcategorys'));
     }
 
