@@ -101,13 +101,13 @@ class ListCategoryController extends Controller
     {
         $used = Point::UsedListCategories();
 
-        if ( $used -> contains( $listcategory->id ) === false) {
-            $listcategory->delete();
-            $request->session()->flash('alert-success', 'Kategoria poistettu');
-        } else {
-            $request->session()->flash('alert-danger', 'Kategoriaa ei poistettu, koska on olemassa siihen kuuluvia pinnatietoja');
-        }
-        return redirect ('listcategorys');
+        if ( Point::UsedListCategories()->contains($listcategory->id) === false) {
+                $listcategory->delete();
+                $request->session()->flash('alert-success', 'Kategoria poistettu');
+            } else {
+                $request->session()->flash('alert-danger', 'Kategoriaa ei poistettu, koska on olemassa siihen kuuluvia pinnatietoja');
+            }
+            return redirect ('listcategorys');
 
          // return public function (
 

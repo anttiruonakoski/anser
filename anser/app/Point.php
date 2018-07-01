@@ -26,7 +26,11 @@ class Point extends Model
 
     public function scopeUsedListCategories($query)
     {
-        return $query->where('amount','>' ,0)->get()->unique('listcategory_id')->pluck('listcategory_id');
+        return $query->where('amount','>',0)->get()->unique('listcategory_id')->pluck('listcategory_id');
+    }
+    public function scopeSubmittingBirders($query)
+    {
+        return $query->where('amount','>',0)->get()->unique('birder_id')->pluck('birder_id');
     }
 
 }

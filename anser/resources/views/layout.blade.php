@@ -22,7 +22,7 @@
 
   	<body>
 
-  		<div class="flex-center position-ref full-height container">
+  		<div class="full-height container">
 
     		<article style="background-image: url('/img/ans2.png'); background-position: top 20px right 20px; background-repeat: no-repeat" class="box has-background-white-bis">
 

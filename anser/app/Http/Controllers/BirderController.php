@@ -33,9 +33,6 @@ class BirderController extends Controller
     public function create()
 
     {
-    //     $v = validate(request(), [
-    //     'name' => 'required'
-    // ]);
     }
 
     /**
@@ -77,7 +74,7 @@ class BirderController extends Controller
     public function show(Birder $birder)
     {
         $listcategorys = ListCategory::all();
-        return view('birderstats', compact('birder', 'listcategorys'));        //
+        return view('birderstats_d', compact('birder', 'listcategorys'));        //
     }
 
     /**
@@ -91,6 +88,8 @@ class BirderController extends Controller
 
         $messages = [
             'required' => 'Pinnamäärä ei voi olla tyhjä',
+            'min' => 'Pinnamäärä ei voi olla negatiivinen',
+            'integer' => 'Pinnamäärän pitää olla kokonaisluku',
             'max' => 'Pinnamäärä ei voi ylittää 2000'
         ];
 
@@ -102,7 +101,7 @@ class BirderController extends Controller
             $fieldName = 'cat_'.$cat->id.'_amount';
 
             $validatedData = $request->validate([
-            $fieldName => 'required|numeric|max:2000',
+            $fieldName => 'required|integer|min:0|max:2000',
             ], $messages);
 
             $amount = request($fieldName);
@@ -111,7 +110,7 @@ class BirderController extends Controller
         }
 
         $request->session()->flash('alert-success', 'Pinnatiedot tallennettu');
-        return view('birderstats', compact('birder', 'listcategorys'));
+        return view('birderstats_d', compact('birder', 'listcategorys'));
     }
 
     /**
@@ -132,10 +131,15 @@ class BirderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Birder $birder)
+    public function destroy(Request $request, Birder $birder)
     {
 
-    $birder->delete();
+    if ( Point::SubmittingBirders()->contains($birder->id) === false ) {
+            $birder->delete();
+            $request->session()->flash('alert-success', 'Ilmoittaja poistettu');
+        } else {
+            $request->session()->flash('alert-danger', 'Ilmoittajaa ei poistettu, koska on olemassa hänelle kuuluvia pinnatietoja');
+        }
 
     return redirect ('birders');
 
