@@ -54,7 +54,7 @@ class ListCategoryController extends Controller
 
         $request->session()->flash('alert-success', 'Kategoria tallennettu');
         $listcategorys = ListCategory::all();
-        return view('listcategorys', compact('listcategorys'));
+        return back();
     }
 
     /**

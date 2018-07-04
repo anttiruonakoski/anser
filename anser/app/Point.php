@@ -9,12 +9,12 @@ class Point extends Model
 {
     protected $fillable = ['amount', 'birder_id', 'listcategory_id'];
 
-    public function submitter()
+    public function birder()
     {
         return $this->belongsTo('App\Birder');
     }
 
-    public function category()
+    public function listcategory()
     {
         return $this->belongsTo('App\ListCategory');
     }

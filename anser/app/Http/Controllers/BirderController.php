@@ -62,7 +62,7 @@ class BirderController extends Controller
         $request->session()->flash('alert-success', 'Ilmoittaja tallennettu');
 
         $birders = allBirdersSorted();
-        return view('birders', compact('birders'));
+        return back();
     }
 
     /**
@@ -74,7 +74,7 @@ class BirderController extends Controller
     public function show(Birder $birder)
     {
         $listcategorys = ListCategory::all();
-        return view('birderstats_d', compact('birder', 'listcategorys'));        //
+        return view('birderstats', compact('birder', 'listcategorys'));        //
     }
 
     /**
@@ -109,8 +109,8 @@ class BirderController extends Controller
         Point::updateOrCreate(['birder_id' => $birder->id, 'listcategory_id' => $cat->id], ['amount' => $amount]);
         }
 
-        $request->session()->flash('alert-success', 'Pinnatiedot tallennettu');
-        return view('birderstats_d', compact('birder', 'listcategorys'));
+        //$request->session()->flash('alert-success', 'Pinnatiedot tallennettu');
+        return view('birderstats_d', compact('birder', 'listcategorys'))->with('alert-success', 'Pinnatiedot tallennettu');
     }
 
     /**

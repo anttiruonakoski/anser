@@ -24,7 +24,7 @@
 
   		<div class="full-height container">
 
-    		<article style="background-image: url('/img/ans2.png'); background-position: top 20px right 20px; background-repeat: no-repeat" class="box has-background-white-bis">
+    		<div style="background-image: url('/img/ans2.png'); background-position: top 20px right 750px; background-repeat: no-repeat" class="box has-background-white-bis">
 
           <div class="columns">
 
@@ -32,7 +32,7 @@
 
            		<h1 class="title is-1 has-text-black-ter">Anser anser</h1>
 
-              <div class="content">
+              <div>
                   Pinnantallennussovellus
               </div>
 
@@ -44,9 +44,7 @@
 
           </div>
 
-
-
-        	<div class="tabs">
+        	<div class="tabs is-hidden-touch">
         	  <ul>
         	  	<li class="{{ request()->is('/') ? 'is-active' : '' }}"><a href="/">Etusivu&nbsp;&nbsp;(pinnat)</a></li>
         	    <li class="{{ request()->is('birders') ? 'is-active' : '' }}"><a href="/birders">Pinnojen ilmoittajat</a></li>
@@ -54,19 +52,27 @@
         	  </ul>
         	</div>
 
-			<div>
+          <div class="tabs is-hidden-desktop has-text-small">
+            <ul>
+              <li class="{{ request()->is('/') ? 'is-active' : '' }}"><a href="/">Pinnat</a></li>
+              <li class="{{ request()->is('birders') ? 'is-active' : '' }}"><a href="/birders">Ilmoittajat</a></li>
+              <li class="{{ request()->is('listcategorys') ? 'is-active' : '' }}"><a href="/listcategorys">Kategoriat</a></li>
+            </ul>
+          </div>
+
+			<div class="">
 
 				@yield('content')
 
 			</div>
 
-			<div class="">
-
-				@yield('footer')
-
-			</div>
-
 		</div>
+
+    <footer class="footer has-background-white">
+
+        @include('footer')
+
+    </footer>
 
   	</body>
 

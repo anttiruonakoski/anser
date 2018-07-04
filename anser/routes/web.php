@@ -16,7 +16,8 @@ use App\Birder, App\ListCategory, App\Point;
 Route::get('/', function () {
 
 	$c = ListCategory::all();
-	$data = Point::where('amount', '>', '0')->get()->sortByDesc('amount')->groupBy('listcategory_id');
+	// $data = App\Point::with('birder')->get()->groupBy('listcategory.category')->sortByDesc('amount');
+	$data = Point::with('birder')->where('amount', '>', 0)->get()->sortByDesc('amount')->groupBy('listcategory.category');
 
     return view('stats', compact('data'));
 

@@ -3,36 +3,34 @@
 @section('content')
 
 
-             <article>
+             <article class="content">
 
                 <h3 class="title is-6">Pinnoja ilmoittaneet lintuharrastajat:</h3>
 
-                @foreach ($birders as $birder)
+                <div class="columns">
 
-                <div id="wrapper" class="columns">
+                <div class="column is-one-third">
 
-                    <div class="column is-narrow-touch is-narrow-tablet is-narrow-mobile is-one-quarter ">
+                    <div class="columns is-multiline is-mobile">
 
-                    <a href="{{ url('birders', [$birder->id]) }}"> {{ $birder->name }} </a>
+                        @foreach ($birders as $birder)
+
+                        <div class="column is-8">
+                            <a href="{{ url('birders', [$birder->id]) }}"> {{ $birder->name }} </a>
+                        </div>
+                        <div class="column is-4">
+                            <form method="POST" action=" {{ url('birders', [$birder->id]) }} ">
+                            {{ csrf_field() }}
+                            {{method_field('DELETE')}}
+                            <input type="submit" class="button is-danger is-outlined is-small" value="poista" disabled></input>
+                            </form>
+                        </div>
+                        @endforeach
 
                     </div>
+                </div>
 
-                    <div class="column is-narrow">
-
-                    <form method="POST" action=" {{ url('birders', [$birder->id]) }} ">
-
-                        {{ csrf_field() }}
-                        {{method_field('DELETE')}}
-
-                        <input type="submit" class="button is-danger is-outlined is-small" value="poista"></input>
-
-                    </form>
-
-                    </div>
-
-                 </div>
-
-                @endforeach
+                </div>
 
 
                 <div class="columns is-multiline is-mobile">
@@ -46,7 +44,7 @@
                     <div class="field is-grouped">
 
                         <p class="control is-expanded">
-                            <input class="input" type="text" placeholder="Lisää uusi pinnanilmoittaja" name="name" autofocus>
+                            <input class="input" type="text" placeholder="Lisää uusi pinnanilmoittaja" name="name">
                         </p>
 
                         <p class="control">
@@ -71,13 +69,12 @@
 
                 @if (count($errors) == 0)
 
-                    @component('inc.flashmessage')
-                    @endcomponent
+                    @include('inc.flashmessage')
 
                 @endif
 
             </article>
 
-    </article>
+    </div>
 
 @endsection
