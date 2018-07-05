@@ -22,8 +22,8 @@
 				<tr>
 					<td>{{ $c->birder->name }}</td>
 					<td width="14%">{{ $c->amount }}</td>
-					<td class="has-text-grey">mustaleppälintu</td>
-					<td class="has-text-grey">30.17.2018</td>
+					<td class="has-text-grey">{{ $c->newest_species }}</td>
+					<td class="has-text-grey">{{ Carbon\Carbon::parse($c->newest_date)->format('d.m.Y') }}</td>
 
 				</tr>
 			@endforeach
