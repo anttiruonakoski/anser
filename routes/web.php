@@ -21,9 +21,9 @@ Route::get('/', function () {
 
     return view('stats', compact('data'));
 
-});
+})->name('home');
 
-Route::get('birders', 'BirderController@index');
+Route::get('birders', 'BirderController@index')->name('birders');
 
 Route::get('birders/{birder}', 'BirderController@show');
 
@@ -35,7 +35,7 @@ Route::delete('birders/{birder}', 'BirderController@destroy');
 
 /// Routes for ListCategory
 
-Route::get('listcategorys', 'ListCategoryController@index');
+Route::get('listcategorys', 'ListCategoryController@index')->name('listcategorys');
 
 Route::get('listcategorys/{listcategory}', 'ListCategoryController@show');
 
