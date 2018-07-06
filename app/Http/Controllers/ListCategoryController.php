@@ -15,7 +15,8 @@ class ListCategoryController extends Controller
     public function index()
     {
         $listcategorys = ListCategory::all();
-        return view('listcategorys', compact('listcategorys'));
+        $usedlistcategorys = Point::UsedListCategories();
+        return view('listcategorys', compact(['listcategorys','usedlistcategorys']));
     }
 
     /**

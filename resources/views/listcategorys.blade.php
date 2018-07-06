@@ -12,18 +12,24 @@
 
 		        <div class="column is-narrow-touch is-narrow-tablet is-narrow-mobile is-one-quarter ">
 
-		        <a href="{{ url('listcategorys', [$category->id]) }}"> {{ $category->category }} </a>
+		        <a href=" {{route ('listcategorys.show', ['listcategory' => $category]) }} "> {{ $category->category }} </a>
 
 		        </div>
 
 		        <div class="column is-narrow">
 
-		        <form method="POST" action=" {{ url('listcategorys', [$category->id]) }} ">
+		        <form method="POST" action="{{ route('listcategorys.destroy', ['listcategory' => $category]) }}">
 
 		            {{ csrf_field() }}
 		            {{method_field('DELETE')}}
 
-		            <input type="submit" class="button is-danger is-outlined is-small" value="poista"></input>
+		            <input type="submit" class="button is-danger is-outlined is-small" value="poista"
+
+					@if ( $usedlistcategorys->contains($category->id) )
+					 title="Kategoriaa ei voi poistaa, koska se sisältää pinnatietoja" disabled
+					@endif
+
+		            ></input>
 
 		        </form>
 
@@ -37,7 +43,7 @@
 
 		                        <div class="column">
 
-		                    <form method="POST" action="/listcategorys">
+		                    <form method="POST" action="{{ route('listcategorys') }}">
 
 		                        {{ csrf_field() }}
 

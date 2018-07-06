@@ -16,13 +16,21 @@
                         @foreach ($birders as $birder)
 
                         <div class="column is-8">
-                            <a href="{{ url('birders', [$birder->id]) }}"> {{ $birder->name }} </a>
+                            <a href="{{ route('birders.show', ['birder' => $birder]) }}"> {{ $birder->name }} </a>
                         </div>
                         <div class="column is-4">
-                            <form method="POST" action=" {{ url('birders', [$birder->id]) }} ">
+
+                            <form method="POST" action=" {{ route('birders.destroy', ['birder' => $birder]) }} ">
                             {{ csrf_field() }}
                             {{method_field('DELETE')}}
-                            <input type="submit" class="button is-danger is-outlined is-small" value="poista" disabled></input>
+                            <input type="submit" class="button is-danger is-outlined is-small" value="poista"
+
+                            @if( $submittingbirders -> contains($birder->id) )
+                                title="Ilmoittajaa ei voi poistaa, koska hänellä on pinnatietoja. Nollaa pinnat ensin."
+                                disabled
+                            @endif
+
+                            ></input>
                             </form>
                         </div>
                         @endforeach
@@ -37,19 +45,19 @@
 
                     <div class="column">
 
-                <form method="POST" action="/birders">
+                        <form method="POST" action="{{ route('birders.store', ['birder' => $birder]) }}">
 
-                    {{ csrf_field() }}
+                        {{ csrf_field() }}
 
-                    <div class="field is-grouped">
+                            <div class="field is-grouped">
 
-                        <p class="control is-expanded">
+                            <p class="control is-expanded">
                             <input class="input" type="text" placeholder="Lisää uusi pinnanilmoittaja" name="name">
-                        </p>
+                             </p>
 
-                        <p class="control">
+                            <p class="control">
                             <input type="submit" class="button is-primary" value="Lisää"></input>
-                        </p>
+                            </p>
 
                     </div>
 

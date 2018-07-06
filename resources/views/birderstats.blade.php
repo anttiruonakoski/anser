@@ -8,7 +8,7 @@
 
                 @forelse($listcategorys as $listcategory)
 
-                <form method="POST" action="/birders/{{ $birder->id }}">
+                <form method="POST" action="{{ route('birders.edit', ['id' => $birder->id]) }}">
 
                     <div id="wrapper" class="columns">
 

@@ -22,7 +22,8 @@ class BirderController extends Controller
     public function index()
     {
         $birders = allBirdersSorted();
-        return view('birders', compact('birders'));
+        $submittingbirders = Point::SubmittingBirders();
+        return view('birders', compact(['birders','submittingbirders']));
     }
 
     /**

@@ -25,22 +25,22 @@ Route::get('/', function () {
 
 Route::get('birders', 'BirderController@index')->name('birders');
 
-Route::get('birders/{birder}', 'BirderController@show');
+Route::get('birders/{birder}', 'BirderController@show')->name('birders.show');
 
-Route::post('birders/{id}', 'BirderController@edit');
+Route::post('birders/{birder}', 'BirderController@edit')->name('birders.edit');
 
-Route::post('birders', 'BirderController@store');
+Route::post('birders', 'BirderController@store')->name('birders.store');
 
-Route::delete('birders/{birder}', 'BirderController@destroy');
+Route::delete('birders/{birder}', 'BirderController@destroy')->name('birders.destroy');;
 
 /// Routes for ListCategory
 
 Route::get('listcategorys', 'ListCategoryController@index')->name('listcategorys');
 
-Route::get('listcategorys/{listcategory}', 'ListCategoryController@show');
+Route::get('listcategorys/{listcategory}', 'ListCategoryController@show')->name('listcategorys.show');
 
-Route::post('listcategorys', 'ListCategoryController@store');
+Route::post('listcategorys', 'ListCategoryController@store')->name('listcategorys.store');
 
-Route::delete('listcategorys/{listcategory}', 'ListCategoryController@destroy');
+Route::delete('listcategorys/{listcategory}', 'ListCategoryController@destroy')->name('listcategorys.destroy');
 
 
