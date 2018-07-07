@@ -44,7 +44,7 @@
 
                 </div>
 
-                <h3 class="title is-6">Pinnoja ilmoittaneet lintuharrastajat: <span class="tag is-info">(eri kategoriassa)</span></h3>
+                <h3 class="title is-6">Pinnoja ilmoittaneet lintuharrastajat: <span class="tag light has-text-grey">(eri pinnalajien määrä)</span></h3>
 
                 <div class="columns">
 
@@ -66,7 +66,7 @@
                             <form method="POST" action=" {{ route('birders.destroy', ['birder' => $birder]) }} ">
                             {{ csrf_field() }}
                             {{method_field('DELETE')}}
-                            <span class="tag is-info">{{ $birder->countPoints() }}</span>&nbsp;&nbsp;
+                            <span class="tag light has-text-grey">{{ $birder->countPoints() }}</span>&nbsp;&nbsp;
                             <input type="submit" class="button is-danger is-outlined is-small" value="poista"
 
                             @if( $submittingbirders -> contains($birder->id) )

@@ -93,7 +93,8 @@ class BirderController extends Controller
             'required' => 'Pinnamäärä ei voi olla tyhjä',
             'min' => 'Pinnamäärä ei voi olla negatiivinen',
             'integer' => 'Pinnamäärän pitää olla kokonaisluku',
-            'max' => 'Pinnamäärä ei voi ylittää 2000'
+            'max' => 'Pinnamäärä ei voi ylittää 2000',
+            'date' => 'Päivämäärä väärin.'
         ];
 
         switch($request->input('action')) {
@@ -106,14 +107,22 @@ class BirderController extends Controller
                 $listcategorys = ListCategory::all();
 
                 foreach ($listcategorys as $cat) {
-                    $fieldName = 'cat_'.$cat->id.'_amount';
+                    $fieldNames = ['cat_'.$cat->id.'_amount', 'cat_'.$cat->id.'_species','cat_'.$cat->id.'_date'] ;
 
-                    $validatedData = $request->validate([
-                    $fieldName => 'required|integer|min:0|max:2000',
+                    $validatedData = $request->validate([$fieldNames[0] => 'required|integer|min:0|max:2000',
                     ], $messages);
 
-                    $amount = request($fieldName);
-                Point::updateOrCreate(['birder_id' => $birder->id, 'listcategory_id' => $cat->id], ['amount' => $amount]);
+                    $validatedData = $request->validate([$fieldNames[1] => 'nullable|string|max:50',
+                    ], $messages);
+
+                    $validatedData = $request->validate([$fieldNames[2] => 'nullable|date_format:"d.m.Y"',
+                    ], $messages);
+
+                    $amount = request($fieldNames[0]);
+                    $species = request($fieldNames[1]);
+                    $date = request($fieldNames[2]);
+
+                Point::updateOrCreate(['birder_id' => $birder->id, 'listcategory_id' => $cat->id], ['amount' => $amount, 'newest_species' => $species]);
                 }
 
                 $request->session()->flash('alert-success', 'Pinnatiedot tallennettu');

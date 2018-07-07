@@ -25,9 +25,19 @@ class Birder extends Model
         return $this->points()->where('amount','>',0)->count();
     }
 
-    public function PointsAmountInCategory($c)
+    public function pointsAmountInCategory($c)
     {
         return $this->points()->where ('listcategory_id', $c )->first()->amount;
+    }
+
+    public function newestSpeciesInCategory($c)
+    {
+        return $this->points()->where ('listcategory_id', $c )->first()->newest_species;
+    }
+
+    public function pointsInCategory($c)
+    {
+        return $this->points()->where ('listcategory_id', $c )->first();
     }
 
 /*    public function scopeHasPointsInCategory($query, $c)
