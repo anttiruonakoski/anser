@@ -1,8 +1,9 @@
 .flash-message {
+	margin-top: 12px;
 	animation-name: fade-out, collapse;
 	animation-duration: 1s, 300ms;
 	animation-delay: 4s, 5s;
-	animation-fill-mode: both, both;
+	animation-fill-mode: both, forwards;
 	&:hover {
 		animation-play-state: paused;
 	}
@@ -23,7 +24,13 @@
     max-height: 200px;
   }
 	100% {
+	margin-top: 0;
     max-height: 0;
     padding: 0;
   }
+}
+
+.tight {
+	padding-top: 6px;
+	padding-bottom: 6px;
 }

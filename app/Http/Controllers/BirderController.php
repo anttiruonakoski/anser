@@ -22,8 +22,10 @@ class BirderController extends Controller
     public function index()
     {
         $birders = allBirdersSorted();
+        $chunksize = chunksize($birders, 3);
+        //$chunksize = ceil(count($birders) / 3);
         $submittingbirders = Point::SubmittingBirders();
-        return view('birders', compact(['birders','submittingbirders']));
+        return view('birders', compact(['birders','submittingbirders','chunksize']));
     }
 
     /**

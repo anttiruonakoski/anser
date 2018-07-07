@@ -15,8 +15,9 @@ class ListCategoryController extends Controller
     public function index()
     {
         $listcategorys = ListCategory::all();
+        $chunksize = chunksize($listcategorys, 3);
         $usedlistcategorys = Point::UsedListCategories();
-        return view('listcategorys', compact(['listcategorys','usedlistcategorys']));
+        return view('listcategorys', compact(['listcategorys','usedlistcategorys','chunksize']));
     }
 
     /**

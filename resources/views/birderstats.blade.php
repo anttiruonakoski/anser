@@ -60,8 +60,8 @@
 
                     @if (count($errors) > 0)
 
-                        <div class="column notification is-warning flash-message">
-                            <p> {{ $errors->first() }} </p>
+                        <div class="column notification is-warning flash-message has-text-centered">
+                            <p>{{ $errors->first() }}</p>
                         </div>
 
                     @endif
@@ -74,7 +74,5 @@
                     @endif
 
             </article>
-
-    </article>
 
 @endsection

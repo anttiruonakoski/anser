@@ -47,24 +47,20 @@
         	<div class="tabs is-hidden-touch">
         	  <ul>
         	  	<li class="{{ request()->is('/') ? 'is-active' : '' }}"><a href="{{ URL::route('home') }}">Etusivu (pinnat)</a></li>
-        	    <li class="{{ request()->is('birders') ? 'is-active' : '' }}"><a href="{{ URL::route('birders') }}">Pinnojen ilmoittajat</a></li>
-        	    <li class="{{ request()->is('listcategorys') ? 'is-active' : '' }}"><a href="{{ URL::route('listcategorys') }}">Pinnakategoriat</a></li>
+        	    <li class="{{ request()->is('birders*') ? 'is-active' : '' }}"><a href="{{ URL::route('birders') }}">Pinnojen ilmoittajat</a></li>
+        	    <li class="{{ request()->is('listcategorys*') ? 'is-active' : '' }}"><a href="{{ URL::route('listcategorys') }}">Pinnakategoriat</a></li>
         	  </ul>
         	</div>
 
           <div class="tabs is-hidden-desktop has-text-small">
             <ul>
               <li class="{{ request()->is('/') ? 'is-active' : '' }}"><a href="{{ URL::route('home') }}">Etusivu</a></li>
-              <li class="{{ request()->is('birders') ? 'is-active' : '' }}"><a href="{{ URL::route('birders') }}">Ilmoittajat</a></li>
-              <li class="{{ request()->is('listcategorys') ? 'is-active' : '' }}"><a href="{{ URL::route('listcategorys') }}">Kategoriat</a></li>
+              <li class="{{ request()->is('birders*') ? 'is-active' : '' }}"><a href="{{ URL::route('birders') }}">Ilmoittajat</a></li>
+              <li class="{{ request()->is('listcategorys*') ? 'is-active' : '' }}"><a href="{{ URL::route('listcategorys') }}">Kategoriat</a></li>
             </ul>
           </div>
 
-			<div class="">
-
 				@yield('content')
-
-			</div>
 
 		</div>
 
