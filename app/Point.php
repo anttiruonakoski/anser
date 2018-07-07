@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Point extends Model
 {
-    protected $fillable = ['amount', 'birder_id', 'listcategory_id','newest_species','newest_date'];
+    protected $fillable = ['amount', 'birder_id', 'listcategory_id','newest_species'];
+    protected $dates = ['newest_date'];
 
     public function birder()
     {

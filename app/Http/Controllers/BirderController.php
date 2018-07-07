@@ -6,6 +6,7 @@ use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Birder, App\ListCategory, App\Point;
+use Carbon\Carbon;
 
 
 function allBirdersSorted() {
@@ -90,12 +91,21 @@ class BirderController extends Controller
     {
 
         $messages = [
+            'amount' => [
             'required' => 'Pinnamäärä ei voi olla tyhjä',
             'min' => 'Pinnamäärä ei voi olla negatiivinen',
             'integer' => 'Pinnamäärän pitää olla kokonaisluku',
-            'max' => 'Pinnamäärä ei voi ylittää 2000',
-            'date' => 'Päivämäärä väärin.'
+            'max' => 'Pinnamäärä ei voi ylittää :max',
+            'date' => 'Päivämäärä väärin.'],
+            'species' => [
+            'max' => 'Lajinimen pituus ei voi ylittää 40 merkkiä'],
+            'date' => [
+            'date' => 'Tarkista päivämäärän muoto',
+            'before_or_equal' => 'Päivämäärä ei voi olla tulevaisuudessa'
+            ]
         ];
+
+
 
         switch($request->input('action')) {
 
@@ -110,19 +120,22 @@ class BirderController extends Controller
                     $fieldNames = ['cat_'.$cat->id.'_amount', 'cat_'.$cat->id.'_species','cat_'.$cat->id.'_date'] ;
 
                     $validatedData = $request->validate([$fieldNames[0] => 'required|integer|min:0|max:2000',
-                    ], $messages);
+                    ], $messages['amount']);
 
-                    $validatedData = $request->validate([$fieldNames[1] => 'nullable|string|max:50',
-                    ], $messages);
+                    $validatedData = $request->validate([$fieldNames[1] => 'nullable|string|max:40',
+                    ], $messages['species']);
 
-                    $validatedData = $request->validate([$fieldNames[2] => 'nullable|date_format:"d.m.Y"',
-                    ], $messages);
+                    $validatedData = $request->validate([$fieldNames[2] => 'nullable|date|before_or_equal:today',
+                    ], $messages['date']);
 
                     $amount = request($fieldNames[0]);
                     $species = request($fieldNames[1]);
                     $date = request($fieldNames[2]);
 
-                Point::updateOrCreate(['birder_id' => $birder->id, 'listcategory_id' => $cat->id], ['amount' => $amount, 'newest_species' => $species]);
+                    // $date = ($fieldNames[2] != "") ? Carbon::parse('j.n.Y', $fieldNames[2]) : null;
+
+                Point::updateOrCreate(['birder_id' => $birder->id, 'listcategory_id' => $cat->id],
+                    ['amount' => $amount, 'newest_species' => $species, 'newest_date' => $date]);
                 }
 
                 $request->session()->flash('alert-success', 'Pinnatiedot tallennettu');

@@ -85,11 +85,11 @@
                                 <!-- <span class="tag is-static"></span> -->
 
                                 <p class="control">
-                                    <input class="input is-small species-input" type="text" pattern="*" name="cat_{{$listcategory->id}}_date" value="{{ Carbon\Carbon::parse($birder->pointsInCategory($listcategory->id)->newest_date)->format('d.m.Y') }}" onclick="this.select()">
+                                    <input class="input is-small species-input" type="text" pattern="*" name="cat_{{$listcategory->id}}_date" value="{{ Carbon\Carbon::parse($birder->pointsInCategory($listcategory->id)->newest_date)->format('j.n.Y') }}" onclick="this.select()">
                                 </p>
                                 <p class="control">
                                     <a class="button is-small is-static date-input">
-                                     {{ Carbon\Carbon::parse($birder->pointsInCategory($listcategory->id)->newest_date)->format('d.m.Y') }}
+                                     {{ Carbon\Carbon::parse($birder->pointsInCategory($listcategory->id)->newest_date)->format('j.n.Y') }}
                                     </a>
                                 </p>
 
