@@ -44,7 +44,7 @@
 
                 </div>
 
-                <h3 class="title is-6">Pinnoja ilmoittaneet lintuharrastajat:</h3>
+                <h3 class="title is-6">Pinnoja ilmoittaneet lintuharrastajat: <span class="tag is-info">(eri kategoriassa)</span></h3>
 
                 <div class="columns">
 
@@ -56,8 +56,9 @@
 
                             @foreach ($chunk as $birder)
 
-                        <div class="column is-half-desktop tight">
+                        <div class="column is-two-thirds-desktop tight">
                             <a href="{{ route('birders.show', ['birder' => $birder]) }}"> {{ $birder->name }} </a>
+
                         </div>
 
                         <div class="column is-third tight">
@@ -65,6 +66,7 @@
                             <form method="POST" action=" {{ route('birders.destroy', ['birder' => $birder]) }} ">
                             {{ csrf_field() }}
                             {{method_field('DELETE')}}
+                            <span class="tag is-info">{{ $birder->countPoints() }}</span>&nbsp;&nbsp;
                             <input type="submit" class="button is-danger is-outlined is-small" value="poista"
 
                             @if( $submittingbirders -> contains($birder->id) )

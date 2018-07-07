@@ -15,6 +15,16 @@ class Birder extends Model
         return $this->hasMany('App\Point');
     }
 
+    public function nonZeroPoints()
+    {
+        return $this->points()->where('amount','>',0);
+    }
+
+        public function countPoints()
+    {
+        return $this->points()->where('amount','>',0)->count();
+    }
+
     public function PointsAmountInCategory($c)
     {
         return $this->points()->where ('listcategory_id', $c )->first()->amount;

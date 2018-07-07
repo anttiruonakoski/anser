@@ -86,7 +86,7 @@ class BirderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, Birder $birder)
     {
 
         $messages = [
@@ -96,24 +96,31 @@ class BirderController extends Controller
             'max' => 'Pinnamäärä ei voi ylittää 2000'
         ];
 
+        switch($request->input('action')) {
 
-        $birder = Birder::find($id);
-        $listcategorys = ListCategory::all();
+            case 'destroy':
+                $request->session()->flash('alert-danger', 'Harrastaja pitäisi tuhota');
+                break;
 
-        foreach ($listcategorys as $cat) {
-            $fieldName = 'cat_'.$cat->id.'_amount';
+            case 'save':
+                $listcategorys = ListCategory::all();
 
-            $validatedData = $request->validate([
-            $fieldName => 'required|integer|min:0|max:2000',
-            ], $messages);
+                foreach ($listcategorys as $cat) {
+                    $fieldName = 'cat_'.$cat->id.'_amount';
 
-            $amount = request($fieldName);
+                    $validatedData = $request->validate([
+                    $fieldName => 'required|integer|min:0|max:2000',
+                    ], $messages);
 
-        Point::updateOrCreate(['birder_id' => $birder->id, 'listcategory_id' => $cat->id], ['amount' => $amount]);
+                    $amount = request($fieldName);
+                Point::updateOrCreate(['birder_id' => $birder->id, 'listcategory_id' => $cat->id], ['amount' => $amount]);
+                }
+
+                $request->session()->flash('alert-success', 'Pinnatiedot tallennettu');
+                break;
         }
 
-        //$request->session()->flash('alert-success', 'Pinnatiedot tallennettu');
-        return view('birderstats_d', compact('birder', 'listcategorys'))->with('alert-success', 'Pinnatiedot tallennettu');
+        return back();
     }
 
     /**

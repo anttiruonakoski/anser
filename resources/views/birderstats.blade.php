@@ -12,28 +12,35 @@
 
                     <div id="wrapper" class="columns">
 
-                        <div class="column is-2">
+                        <div class="column is-2 tight">
 
                             {{ $listcategory->category }}
 
                         </div>
 
-                        <div class="column is-1">
+                        <div class="column is-1 tight field has-addons">
 
-                            <div class="control">
 
                             @if ($birder->hasPointsInCategory($listcategory->id))
 
-                                <input class="input is-small" type="number" size="5" name="cat_{{$listcategory->id}}_amount" value="{{ $birder->PointsAmountInCategory($listcategory->id) }}">
+                                <!-- <span class="tag is-info"></span> -->
+
+                                <p class="control">
+                                    <input class="input is-small points-input" type="number" size="4" pattern="[0-9]{1-4}" min="0" max="2000" name="cat_{{$listcategory->id}}_amount" value="{{ $birder->PointsAmountInCategory($listcategory->id) }}" onclick="this.select()">
+                                </p>
+                                <p class="control">
+                                    <a class="button is-small is-info points-input" disabled>
+                                     {{ $birder->PointsAmountInCategory($listcategory->id) }}
+                                    </a>
+                                </p>
 
                             @else
 
-                                <input class="input is-small" type="number" size="5" name="cat_{{$listcategory->id}}_amount" value="0">
+                                <input class="input is-small points-input" type="number" size="4" pattern="[0-9]{1-4}" min="0" max="2000" name="cat_{{$listcategory->id}}_amount" value="0" onclick="this.select()">
 
                             @endif
 
-                            </div>
-                        </div>
+                         </div>
 
                     </div>
 
@@ -43,24 +50,21 @@
 
                 <div class="columns is-multiline is-mobile">
 
-                    <div class="column">
+                    <div class="column is-third">
 
                     {{ csrf_field() }}
 
-                         <div class="field is-grouped">
-
-                                <p class="control">
-                                <input type="submit" class="button is-primary" value="Tallenna"></input>
-                                </p>
-
-                        </div>
-                    </div>
-                </form>
-                </div>
+                            <div class="field level">
+                                <div class="control">
+                                <button type="submit" class="level-left button is-primary" name="action" value="save">Tallenna</button>
+                                </div>
+                                <button type="submit" class="level-left button is-danger" name="action" value="destroy">Poista</button>
+                            </div>
+                    </form>
 
                     @if (count($errors) > 0)
 
-                        <div class="column notification is-warning flash-message has-text-centered">
+                        <div class="column notification flash-message is-warning has-text-centered">
                             <p>{{ $errors->first() }}</p>
                         </div>
 
@@ -68,11 +72,15 @@
 
                     @if (count($errors) === 0)
 
-                        @component('inc.flashmessage')
-                        @endcomponent
+                        @include('inc.flashmessage')
 
                     @endif
 
+                    </div>
+
+                </div>
+
             </article>
+
 
 @endsection
