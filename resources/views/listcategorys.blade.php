@@ -58,7 +58,7 @@
 
 			        		<div class="column is-half-desktop tight">
 
-			        			<a href=" {{route ('listcategorys.show', ['listcategory' => $category]) }} "> {{ $category->category }} </a>
+			        			<a href=" {{route ('listcategorys', ['listcategory' => $category]) }} "> {{ $category->category }} </a>
 
 			        		</div>
 
@@ -88,8 +88,6 @@
 		     	</div>
 
 		    @endforeach
-
-
 
 
 		                    </div>

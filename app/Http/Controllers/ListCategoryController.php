@@ -54,7 +54,7 @@ class ListCategoryController extends Controller
         $listcategory->category = request('category');
         $listcategory->save();
 
-        $request->session()->flash('alert-success', 'Kategoria tallennettu');
+        $request->session()->flash('alert-success', 'Kategoria '.$listcategory->category. ' tallennettu');
         $listcategorys = ListCategory::all();
         return back();
     }
@@ -105,7 +105,7 @@ class ListCategoryController extends Controller
 
         if ( Point::UsedListCategories()->contains($listcategory->id) === false) {
                 $listcategory->delete();
-                $request->session()->flash('alert-success', 'Kategoria poistettu');
+                $request->session()->flash('alert-success', 'Kategoria '.$listcategory->category.' poistettu');
             } else {
                 $request->session()->flash('alert-danger', 'Kategoriaa ei poistettu, koska on olemassa siihen kuuluvia pinnatietoja');
             }

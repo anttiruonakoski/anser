@@ -100,7 +100,7 @@ class BirderController extends Controller
             'species' => [
             'max' => 'Lajinimen pituus ei voi ylittää 40 merkkiä'],
             'date' => [
-            'date' => 'Tarkista päivämäärän muoto',
+            'date' => 'Virheellinen päivämäärän muoto:',
             'before_or_equal' => 'Päivämäärä ei voi olla tulevaisuudessa'
             ]
         ];
@@ -110,7 +110,7 @@ class BirderController extends Controller
         switch($request->input('action')) {
 
             case 'destroy':
-                $request->session()->flash('alert-danger', 'Harrastaja pitäisi tuhota');
+                $request->session()->flash('alert-destroy', 'Ilmoittaja '.$birder->name.' poistetaan. Oletko varma?');
                 break;
 
             case 'save':
@@ -166,12 +166,23 @@ class BirderController extends Controller
     public function destroy(Request $request, Birder $birder)
     {
 
-    if ( Point::SubmittingBirders()->contains($birder->id) === false ) {
-            $birder->delete();
-            $request->session()->flash('alert-success', 'Ilmoittaja poistettu');
-        } else {
-            $request->session()->flash('alert-danger', 'Ilmoittajaa ei poistettu, koska on olemassa hänelle kuuluvia pinnatietoja');
+    // if ( Point::SubmittingBirders()->contains($birder->id) === false ) {
+
+        switch($request->input('action')) {
+
+            case 'destroy':
+                $birder->delete();
+                $request->session()->flash('alert-success', 'Ilmoittaja '. $birder->name. ' poistettu');
+                break;
+            case 'cancel':
+                return back();
+                break;
+
         }
+
+        // } else {
+            // $request->session()->flash('alert-danger', 'Ilmoittajaa ei poistettu, koska on olemassa hänelle kuuluvia pinnatietoja');
+        // }
 
     return redirect ('birders');
 

@@ -138,7 +138,7 @@
 
                     @if (count($errors) === 0)
 
-                        @include('inc.flashmessage')
+                        @include('inc.flashmessage', ['target' => $birder->id, 'tname' => $birder->name])
 
                     @endif
 
